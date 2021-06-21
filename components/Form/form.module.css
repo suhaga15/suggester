@@ -1,0 +1,7 @@
+.formItem {
+  @apply p-4;
+}
+
+.formInput {
+  @apply mx-2;
+}
