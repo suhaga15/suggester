@@ -10,7 +10,6 @@ export default function Home() {
       <Header />
       <Divider />
       <Form />
-      {/* Table */}
     </Layout>
   );
 }
