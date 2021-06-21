@@ -1,81 +1,60 @@
 import { useEffect, useState } from "react";
+import { salaryValues, storeValues } from "../../constants/formConstants";
 import styles from "./form.module.css";
 
 const Form = () => {
-  const [salary, setSalary] = useState<string | null>(null);
-  const [store, setStore] = useState<string | null>(null);
+  const [selectedSalary, setSalary] = useState<string | null>(null);
+  const [selectedStore, setStore] = useState<string | null>(null);
   const [fetchTableData, setFetchTableData] = useState<boolean>(false);
 
   useEffect(() => {
-    if (salary && store) {
+    if (selectedSalary && selectedStore) {
       setFetchTableData(true);
     }
-  }, [salary, store]);
+  }, [selectedSalary, selectedStore]);
 
   return (
     <>
       <form>
         <div className={styles.formLabel}>What is your salary?</div>
         <div className={styles.formItem}>
-          <span
-            className="flex-row justify-center items-center"
-            onClick={() => {
-              setSalary("3-5 lakh");
-            }}
-          >
-            <input
-              type="radio"
-              className={styles.formInput}
-              checked={salary === "3-5 lakh"}
-            />
-            3-5 lakh
-          </span>
-          <span
-            className="flex-row justify-center items-center"
-            onClick={() => {
-              setSalary("5-10 lakh");
-            }}
-          >
-            <input
-              type="radio"
-              className={styles.formInput}
-              checked={salary === "5-10 lakh"}
-            />
-            5-10 lakh
-          </span>
+          {salaryValues.map((salary) => (
+            <span
+              className="flex-row justify-center items-center"
+              onClick={() => {
+                setSalary(salary.value);
+              }}
+            >
+              <input
+                type="radio"
+                className={styles.formInput}
+                checked={selectedSalary === salary.value}
+              />
+              {salary.label}
+            </span>
+          ))}
         </div>
 
         <div className={styles.formLabel}>Where do you shop the most?</div>
         <div className={styles.formItem}>
-          <span
-            className="flex-row justify-center items-center"
-            onClick={() => {
-              setStore("Amazon");
-            }}
-          >
-            <input
-              type="radio"
-              className={styles.formInput}
-              checked={store === "Amazon"}
-            />
-            Amazon
-          </span>
-          <span
-            className="flex-row justify-center items-center"
-            onClick={() => {
-              setStore("Patanjali store");
-            }}
-          >
-            <input
-              type="radio"
-              className={styles.formInput}
-              checked={store === "Patanjali store"}
-            />
-            Patanjali store
-          </span>
+          {storeValues.map((store) => (
+            <span
+              className="flex-row justify-center items-center"
+              onClick={() => {
+                setStore(store.value);
+              }}
+            >
+              <input
+                type="radio"
+                className={styles.formInput}
+                checked={selectedStore === store.value}
+              />
+              {store.label}
+            </span>
+          ))}
         </div>
       </form>
-      {salary && store && <div>Table</div>}
+      {selectedSalary && selectedStore && <div>Table</div>}
     </>
   );
 };
